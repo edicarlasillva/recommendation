@@ -1,26 +1,34 @@
 import { Button, Grid, TextField } from "@mui/material";
 import { FormEvent, useState } from "react";
+import { useDispatch } from "react-redux";
+import { addRecommendation } from "../store/slices/recommendationsSlice";
 
-interface Recommendation {
-  id: number;
-  name: string;
-  content: string;
-}
+// interface Recommendation {
+//   id: number;
+//   name: string;
+//   content: string;
+// }
 
 export function RecommendationForm() {
+  const dispatch = useDispatch()
+
   const [name, setName] = useState('')
   const [content, setContent] = useState('')
-  const [recommendations, setRecommendations] = useState<Recommendation[]>([])
+  // const [recommendations, setRecommendations] = useState<Recommendation[]>([])
 
   const handleAddRecommendation = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    setRecommendations({
-      id: Date.now(), name, content
-    })
+    dispatch(addRecommendation({id: Date.now(), name, content}))
+
+    setName('')
+    setContent('')
+
+    // setRecommendations({
+    //   id: Date.now(), name, content
+    // })
   }
 
-  {console.log(recommendations)}
 
   return (
     <form onSubmit={handleAddRecommendation}>
