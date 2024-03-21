@@ -1,6 +1,6 @@
 import { Button, Grid, TextField } from "@mui/material";
 import { FormEvent, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "../store/hooks";
 import { addRecommendation } from "../store/slices/recommendationsSlice";
 
 // interface Recommendation {
@@ -10,7 +10,7 @@ import { addRecommendation } from "../store/slices/recommendationsSlice";
 // }
 
 export function RecommendationForm() {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
 
   const [name, setName] = useState('')
   const [content, setContent] = useState('')
