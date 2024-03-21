@@ -31,10 +31,17 @@ const recommendationsSlice = createSlice({
   // a action recebe o estado atual e a ação
   reducers: {
     addRecommendation: (state, action: PayloadAction<IRecommendation>) => {
-      state.list.push(action.payload)
+      // state.list.push(action.payload)
+      return {
+        ...state,
+        list: [...state.list, action.payload]
+      }
+    },
+    deleteRecommendation: (state, action: PayloadAction<number>) => {
+      state.list = state.list.filter((item) => item.id !== action.payload)
     }
   }
 })
 
-export const { addRecommendation } = recommendationsSlice.actions
+export const { addRecommendation, deleteRecommendation } = recommendationsSlice.actions
 export default recommendationsSlice.reducer
