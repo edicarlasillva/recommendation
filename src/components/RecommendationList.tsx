@@ -3,7 +3,7 @@ import { useAppSelector } from "../store/hooks";
 import { RecommendationCard } from "./RecommendationCard";
 
 export function RecommendationList() {
-  const recommendations = useAppSelector((store) => store.recommendations.list)
+  const recommendations = useAppSelector((store) => store.recommendations.list);
 
   return (
     <Grid container spacing={2}>
@@ -13,5 +13,5 @@ export function RecommendationList() {
         </Grid>
       ))}
     </Grid>
-  )
+  );
 }
