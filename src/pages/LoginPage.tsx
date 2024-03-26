@@ -20,7 +20,7 @@ export function LoginPage() {
 
     dispatch(login(response));
 
-    navigate("/recomendacao");
+    navigate("/avaliacoes");
   }
 
   return (
