@@ -11,6 +11,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { CreateAssessment } from "../components/CreateAssessment";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { deleteAssessment } from "../store/slices/assessmentsSlice";
 import { openModal } from "../store/slices/modalSlice";
 
 export function AssessmentsList() {
@@ -31,6 +32,10 @@ export function AssessmentsList() {
 
   function handleAddAssessment() {
     dispatch(openModal());
+  }
+
+  function handleDeleteAssessment(id: string) {
+    dispatch(deleteAssessment(id));
   }
 
   return (
@@ -55,7 +60,9 @@ export function AssessmentsList() {
 
               <CardActions>
                 <Button variant="contained">Editar</Button>
-                <Button>Excluir</Button>
+                <Button onClick={() => handleDeleteAssessment(assessment.id)}>
+                  Excluir
+                </Button>
               </CardActions>
             </Card>
           </Grid>

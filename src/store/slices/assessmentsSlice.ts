@@ -35,5 +35,5 @@ const assessmentsSlice = createSlice({
   }
 })
 
-export const { addAssessment } = assessmentsSlice.actions
+export const { addAssessment, deleteAssessment } = assessmentsSlice.actions
 export default assessmentsSlice.reducer
