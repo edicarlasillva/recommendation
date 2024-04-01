@@ -3,6 +3,7 @@ import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
 import assessmentsReducer from './slices/assessmentsSlice'
+import loadingReducer from './slices/loadingSlice'
 import modalReducer from './slices/modalSlice'
 import recommendationsReducer from './slices/recommendationsSlice'
 import themeReducer from './slices/themeSlice'
@@ -15,7 +16,8 @@ const rootReducer = combineReducers({
   user: userReducer,
   assessments: assessmentsReducer,
   modal: modalReducer,
-  theme: themeReducer
+  theme: themeReducer,
+  loading: loadingReducer
 })
 
 export const persistedReducer = persistReducer({
