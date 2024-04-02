@@ -1,26 +1,30 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { getAssessments } from "../../services/api";
+import { IAssessment } from "../../types/assessment";
+import { RootState } from "../store";
+import { setLoading } from "./loadingSlice";
 
-export interface IAssessment {
-  id: string;
-  discipline: string;
-  grade: number;
-  idStudent: string
-}
+const initialState: IAssessment[] = []
 
-const initialState: IAssessment[] = [
-  {
-    id: '123456',
-    discipline: 'React III',
-    grade: 10,
-    idStudent: '123456'
-  },
-  {
-    id: '123458',
-    discipline: 'Banco de Dados II',
-    grade: 8,
-    idStudent: '123456'
+export const listAssessments = createAsyncThunk('assessments/listAssessments', async (_, config) => {
+  config.dispatch(setLoading(true))
+
+  const state = config.getState() as RootState
+  const user = state.user
+
+  if (!user) {
+    return []
   }
-]
+
+  const result = await getAssessments({
+    id: user?.id,
+    token: user?.token
+  })
+
+  config.dispatch(setLoading(false))
+
+  return result
+})
 
 const assessmentsSlice = createSlice({
   name: 'assessments',
@@ -32,6 +36,11 @@ const assessmentsSlice = createSlice({
     deleteAssessment: (state, action: PayloadAction<string>) => {
       return state.filter((item) => item.id !== action.payload)
     }
+  },
+  extraReducers(builder) {
+    builder.addCase(listAssessments.fulfilled, (_, action) => {
+      return action.payload
+    })
   }
 })
 

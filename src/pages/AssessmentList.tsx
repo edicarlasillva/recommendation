@@ -11,7 +11,10 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { CreateAssessment } from "../components/CreateAssessment";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { deleteAssessment } from "../store/slices/assessmentsSlice";
+import {
+  deleteAssessment,
+  listAssessments,
+} from "../store/slices/assessmentsSlice";
 import { openModal } from "../store/slices/modalSlice";
 
 export function AssessmentsList() {
@@ -20,6 +23,14 @@ export function AssessmentsList() {
 
   const user = useAppSelector((state) => state.user);
   const assessments = useAppSelector((state) => state.assessments);
+
+  function handleAddAssessment() {
+    dispatch(openModal());
+  }
+
+  function handleDeleteAssessment(id: string) {
+    dispatch(deleteAssessment(id));
+  }
 
   useEffect(() => {
     if (!user) {
@@ -30,13 +41,9 @@ export function AssessmentsList() {
     }
   }, [user, navigate]);
 
-  function handleAddAssessment() {
-    dispatch(openModal());
-  }
-
-  function handleDeleteAssessment(id: string) {
-    dispatch(deleteAssessment(id));
-  }
+  useEffect(() => {
+    dispatch(listAssessments());
+  }, [dispatch]);
 
   return (
     <Container>
