@@ -3,11 +3,16 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { login } from "../../services/api";
 import { ILogin } from "../../types/login";
 import { IUser } from "../../types/user";
+import { setLoading } from "./loadingSlice";
 
 const initialState: IUser | null = null 
 
-export const loginRequest = createAsyncThunk('user/login', async (data: ILogin) => {
+export const loginRequest = createAsyncThunk('user/login', async (data: ILogin, config) => {
+  config.dispatch(setLoading(true))
+
   const result = await login(data)
+
+  config.dispatch(setLoading(false))
 
   return result
 })

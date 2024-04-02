@@ -6,6 +6,7 @@ import { Header } from "./components/Header";
 import { router } from "./routes/Router";
 import { useAppSelector } from "./store/hooks";
 
+import { LoadingModal } from "./components/LoadingModal";
 import { dark, light } from "./themes";
 
 export function Root() {
@@ -16,6 +17,7 @@ export function Root() {
   return (
     <ThemeProvider theme={currentTheme}>
       <CssBaseline />
+      <LoadingModal />
       <Header />
       <RouterProvider router={router} />
     </ThemeProvider>
