@@ -10,6 +10,7 @@ import {
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { CreateAssessment } from "../components/CreateAssessment";
+import { TableAssessment } from "../components/TableAssessment";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
 import {
   deleteAssessment,
@@ -54,6 +55,8 @@ export function AssessmentsList() {
       <Button variant="contained" onClick={handleAddAssessment}>
         Criar avaliação
       </Button>
+
+      <TableAssessment />
 
       <Grid container spacing={2}>
         {assessments.map((assessment) => (
