@@ -1,21 +1,10 @@
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Container,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { Button, Container, Typography } from "@mui/material";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { CreateAssessment } from "../components/CreateAssessment";
 import { TableAssessment } from "../components/TableAssessment";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import {
-  deleteAssessment,
-  listAssessments,
-} from "../store/slices/assessmentsSlice";
+import { listAssessments } from "../store/slices/assessmentsSlice";
 import { openModal } from "../store/slices/modalSlice";
 
 export function AssessmentsList() {
@@ -23,14 +12,9 @@ export function AssessmentsList() {
   const navigate = useNavigate();
 
   const user = useAppSelector((state) => state.user);
-  const assessments = useAppSelector((state) => state.assessments);
 
   function handleAddAssessment() {
     dispatch(openModal());
-  }
-
-  function handleDeleteAssessment(id: string) {
-    dispatch(deleteAssessment(id));
   }
 
   useEffect(() => {
@@ -58,7 +42,7 @@ export function AssessmentsList() {
 
       <TableAssessment />
 
-      <Grid container spacing={2}>
+      {/* <Grid container spacing={2}>
         {assessments.map((assessment) => (
           <Grid item xs={6} md={3} key={assessment.id}>
             <Card>
@@ -77,7 +61,7 @@ export function AssessmentsList() {
             </Card>
           </Grid>
         ))}
-      </Grid>
+      </Grid> */}
       <CreateAssessment />
     </Container>
   );

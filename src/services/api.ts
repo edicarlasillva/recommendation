@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from 'axios'
 
-import { IAssessment } from '../types/assessment'
+import { AssessmentCreateDTO, AssessmentDeleteDTO, IAssessment } from '../types/assessment'
 import { ILogin } from '../types/login'
 
 const api = axios.create({
@@ -45,5 +45,44 @@ export async function getAssessments(data: IAssessmentResponse) {
     alert(error.toString())
 
     return []
+  }
+}
+
+export async function createAssessment(data: AssessmentCreateDTO) {
+  try {
+    const newAssessment = {
+      discipline: data.discipline,
+      grade: data.grade 
+    }
+
+      const response =  await api.post(`/students/${data.id}/assessments`, newAssessment, {
+        headers: {
+          Authorization: data.token
+        }
+      })
+
+      return response.data.data as IAssessment
+
+  } catch(error) {
+    console.log("Erro ao criar avaliação: ", error)
+
+    return {}
+  }
+}
+
+export async function deleteAssessment(data: AssessmentDeleteDTO) {
+  try {
+      const response =  await api.delete(`/students/${data.studentId}/assessments/${data.assessmentId}`, {
+        headers: {
+          Authorization: data.token
+        }
+      })
+
+      return response.data.data as IAssessment
+
+  } catch(error) {
+    console.log("Erro ao criar avaliação: ", error)
+
+    return {}
   }
 }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Delete, Edit } from "@mui/icons-material";
 
 import {
@@ -13,6 +14,7 @@ import {
   TableRow,
 } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
+import { deleteAssessmentThunk } from "../store/slices/assessmentsSlice";
 import { changePage, changeRowsPerPage } from "../store/slices/paginationSlice";
 
 export function TableAssessment() {
@@ -30,6 +32,10 @@ export function TableAssessment() {
 
   function handleChangePage(_: any, page: number) {
     dispatch(changePage(page + 1));
+  }
+
+  function handleDelete(id: string) {
+    dispatch(deleteAssessmentThunk(id));
   }
 
   return (
@@ -60,7 +66,7 @@ export function TableAssessment() {
                     <Edit color="primary" />
                   </IconButton>
 
-                  <IconButton>
+                  <IconButton onClick={() => handleDelete(assessment.id)}>
                     <Delete color="error" />
                   </IconButton>
                 </TableCell>

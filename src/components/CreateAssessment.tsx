@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { FormEvent, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../store/hooks";
-import { addAssessment } from "../store/slices/assessmentsSlice";
+import { createAssessmentThunk } from "../store/slices/assessmentsSlice";
 import { closeModal } from "../store/slices/modalSlice";
 
 export function CreateAssessment() {
@@ -26,14 +26,7 @@ export function CreateAssessment() {
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    dispatch(
-      addAssessment({
-        id: "123456",
-        discipline,
-        grade: parseFloat(grade),
-        idStudent: "123465",
-      })
-    );
+    dispatch(createAssessmentThunk({ grade: parseFloat(grade), discipline }));
 
     setDiscipline("");
     setGrade("");
@@ -51,6 +44,7 @@ export function CreateAssessment() {
             fullWidth
             name="discipline"
             label="Disciplina"
+            sx={{ my: 1 }}
             value={discipline}
             onChange={(e) => setDiscipline(e.target.value)}
           />
@@ -59,6 +53,7 @@ export function CreateAssessment() {
             fullWidth
             name="grade"
             label="Nota"
+            sx={{ my: 1 }}
             value={grade}
             onChange={(e) => setGrade(e.target.value)}
           />
